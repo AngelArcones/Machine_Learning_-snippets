@@ -22,7 +22,7 @@ reg_LR.coef_ #Pendiente
 reg_LR.intercept_ #Punto de corte
 ```
 
-## k-neighbors
+## k-nearest neighbors
 Parámetros principales
 * n_neighbors: vecinos más próximos a considerar
 
@@ -50,8 +50,8 @@ reg_DT = DecisionTreeRegressor(max_depth=5, min_samples_leaf=20) #cambiar parame
 reg_DT.fit(X_train, y_train)
 ```
 # Metrics
+Generar prediccion para evaluar
 ```python
-# Prediccion
 y_pred = reg_model.predict(X_test) #se puede incluir directamente así en los calculos
 ```
 ## Mean Absolute Error (MAE)
@@ -121,8 +121,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.10)
 ## Cross Validation
 Parámetros principales
 * cv = número de particiones entre las que combinar
-* scoring = métrica de evaluacion
-Métricas de Scoring [aqui](https://scikit-learn.org/stable/modules/model_evaluation.html)
+* scoring = métrica de evaluacion  
+Métricas de Scoring [aqui](https://scikit-learn.org/stable/modules/model_evaluation.html)  
 Además se pueden añadir los custom (ver Bias / Correlation)
 ```python
 from sklearn.model_selection import cross_val_score
