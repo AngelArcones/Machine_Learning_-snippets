@@ -85,7 +85,7 @@ from sklearn.svm import SVC
 clf_SVM = SVC(kernel="linear",C=10)
 
 # Ajustar modelo
-clf_SVM.fit(X,y)
+clf_SVM.fit(X_train,y_train)
 ```
 
 # Random Forest
@@ -98,7 +98,7 @@ from sklearn.ensemble import RandomForestClassifier
 clf_RF = RandomForestClassifier(max_depth=4)
 
 # Ajustar modelo
-clf_RF.fit(X,y)
+clf_RF.fit(X_train,y_train)
 ```
 
 # Gradient Boosting Tree
@@ -109,8 +109,9 @@ from sklearn.ensemble import GradientBoostingClassifier
 
 # Crear instancia
 clf_GBT = GradientBoostingClassifier(max_depth=4)
-# Fit the data
-clf_GBT.fit(X,y)
+
+# Ajustar modelo
+clf_GBT.fit(X_train,y_train)
 ```
 #Métricas
 
