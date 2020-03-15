@@ -49,7 +49,34 @@ reg_DT = DecisionTreeRegressor(max_depth=5, min_samples_leaf=20) #cambiar parame
 # Ajustar modelo
 reg_DT.fit(X_train, y_train)
 ```
-# Metrics
+
+# Random Forest
+Prámetros: ver decision tree
+
+```python
+from sklearn.ensemble import RandomForestRegressor
+
+# Crear instancia
+reg_RF = RandomForestCRegressor(max_depth=4)
+
+# Ajustar modelo
+reg_RF.fit(X_train,y_train)
+```
+
+# Gradient Boosting Tree
+Parámetros: ver decision tree
+
+```python
+from sklearn.ensemble import GradientBoostingRegressor
+
+# Crear instancia
+reg_GBT = GradientBoostingRegressor(max_depth=4)
+
+# Ajustar modelo
+reg_GBT.fit(X_train,y_train)
+```
+
+# Métricas
 Generar prediccion para evaluar
 ```python
 y_pred = reg_model.predict(X_test) #se puede incluir directamente así en los calculos
@@ -111,7 +138,7 @@ return np.mean(y_pred-y_test)
 cross_val_score(reg,X,y,cv=5,scoring=make_scorer(bias))
 ```
 
-# Evaluation
+# Evaluación
 ## Train - Test split
 ```python
 from sklearn.model_selection import train_test_split
@@ -127,11 +154,11 @@ Además se pueden añadir los custom (ver Bias / Correlation)
 ```python
 from sklearn.model_selection import cross_val_score
 
-cross_val_score(reg_model,X,y,cv=5,scoring=make_scorer(corr))
+cross_val_score(reg_model,X,y,cv=5,scoring='neg_mean_absolute_error')
 
 # Para obtener el valor promedio
 import numpy as np
-np.mean(cross_val_score(reg_model,X,y,cv=5,scoring=make_scorer(corr)))
+np.mean(cross_val_score(reg_model,X,y,cv=5,scoring='neg_mean_absolute_error'))
 ```
 
 ## Grid Search
