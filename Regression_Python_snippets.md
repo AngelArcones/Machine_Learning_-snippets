@@ -23,6 +23,9 @@ reg_LR.intercept_ #Punto de corte
 ```
 
 ## k-neighbors
+Parámetros principales
+* n_neighbors: vecinos más próximos a considerar
+
 ```python
 from sklearn.neighbors import KNeighborsRegressor
 
@@ -33,6 +36,9 @@ reg_knn = KNeighborsRegressor(n_neighbors=2)
 reg_knn.fit(X_train,y_train)
 ```
 ## Decision tree
+Parámetros principales
+* Max_depth: Número máximo de cortes
+* Min_samples_leaf: Número mínimo de observaciones en cada subgrupo (hoja)
 
 ```python
 from sklearn.tree import DecisionTreeRegressor
@@ -87,7 +93,7 @@ from sklearn.metrics import make_scorer
 def corr(y_pred,y_test):
 return np.corrcoef(y_pred,y_test)[0][1]
 
-# Put the scorer in cross_val_score
+# Incluir el scorer en cross_val_score
 cross_val_score(reg_model,X,y,cv=5,scoring=make_scorer(corr))
 ```
 
@@ -101,7 +107,7 @@ from sklearn.metrics import make_scorer
 def bias(y_pred,y_test):
 return np.mean(y_pred-y_test)
 
-# Put the scorer in cross_val_score
+# Incluir el scorer en cross_val_score
 cross_val_score(reg,X,y,cv=5,scoring=make_scorer(bias))
 ```
 
@@ -113,5 +119,51 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.10)
 ```
 ## Cross Validation
+Parámetros principales
+* cv = número de particiones entre las que combinar
+* scoring = métrica de evaluacion
+Métricas de Scoring [aqui](https://scikit-learn.org/stable/modules/model_evaluation.html)
+Además se pueden añadir los custom (ver Bias / Correlation)
+```python
+from sklearn.model_selection import cross_val_score
+
+cross_val_score(reg_model,X,y,cv=5,scoring=make_scorer(corr))
+
+# Para obtener el valor promedio
+import numpy as np
+np.mean(cross_val_score(reg_model,X,y,cv=5,scoring=make_scorer(corr)))
+```
+
 ## Grid Search
+Parámetros principales:
+* Modelo a usar (sin especificar parametros)
+* param_grid = `diccionario` con los nombres de los parametros del modelo (en keys) y los posibles valores (en values)
+* cv = particiones de cross validation
+* scoring = métrica para evaluar qué modelo es mejor (ver cross validation)
+
+```python
+from sklearn.model_selection import GridSearchCV
+
+reg_knn_test = GridSearchCV(KNeighborsRegressor(), #Ejemplo con KNN
+                         param_grid = {'n_neighbors':np.arange(2,50)},
+                        cv=5,
+                        scoring='neg_mean_absolute_error')
+```
+
 ## Randomized Search
+Parámetros principales:
+* Modelo a usar (sin especificar parametros)
+* param_grid = `diccionario` con los nombres de los parametros del modelo (en keys) y los posibles valores (en values)
+* cv = particiones de cross validation
+* scoring = métrica para evaluar qué modelo es mejor (ver cross validation)
+* n_iter = número de pruebas aleatorias a realizar entre todas las posibles
+```python
+from sklearn.model_selection import RandomizedSearchCV
+
+reg_dt_testR = RandomizedSearchCV(DecisionTreeRegressor(), #Ejemplo con Decision Tree
+                                param_distributions={'max_depth':[2,3,5,10],
+                                                    'min_samples_leaf':[5,10,15,20,30,40]},
+                                cv=5,
+                                scoring='neg_mean_absolute_error',
+                                n_iter=10)
+```
