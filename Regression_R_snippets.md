@@ -58,6 +58,7 @@ summary(reg_GLM2)
 Parámetros adicionales:
 * k = número de vecinos cercanos a considerar  
 Aqui ya se incluye una busqueda de parametros (tune grid)  
+  
 Adicionalmente conviente especificar el método de resampleo
 * method = metodo de resampleo ('cv', 'repeatedcv', 'LOOCV', ...)
 * number = número de particiones (k-fold)
@@ -88,8 +89,9 @@ mean(abs(df_reg_test$y - predict(reg_model, df_reg_test)))
 ```
 
 ### Mean Absolute Percentage Error (MAPE)
-
+```r
 mean(abs(df_reg_test$y - predict(reg_LM, df_reg_test))/df_reg_test$y)
+```
 
 
 
