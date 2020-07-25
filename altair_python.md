@@ -1,4 +1,4 @@
-#Altair visualization snippets
+# Altair visualization snippets
 
 ```python
 import altair as alt
@@ -35,7 +35,7 @@ alt.Chart(trends).mark_bar().encode(
     x='search_term',
     y='mean(value)',
     color='search_term'
-)
+).interactive()
 ```
 
 ## Line graph
@@ -48,7 +48,7 @@ alt.Chart(trends).mark_line().encode(
     x='yearmonth(date):T',
     y='mean(value)',
     color='search_term'
-)
+).interactive()
 
 ```
 ## Map
